@@ -8,12 +8,15 @@ app.use(express.json());
 
 app.use("/posts", postsRoutes);
 
+//// errorhandling middleware
+app.use((error, req, res, next) => {
+  res.status(500).json(error.message);
+});
+// /////errormsg not working!
+
+//// notfound
 app.use((req, res, next) => {
   res.status(404).json({ msg: "path not found" });
-});
-
-app.use((error, req, res, next) => {
-  res.status(500).json("Internal Server Error.");
 });
 
 app.listen(8000, () => {

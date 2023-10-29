@@ -1,17 +1,34 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 const {
   postsGet,
   postsUpdate,
   postsDelete,
   postsCreate,
-} = require('./posts.controllers');
+} = require("./posts.controllers");
+const Post = require("../../models/Post");
 
-router.get('/', postsGet);
-router.post('/', postsCreate);
+///////// shortcut
+router.param("postId", async (req, res, next, postId) => {
+  try {
+    // const post = await fetchPost(postId);
+    const foundPost = await Post.findById(postId);
+    if (foundPost) {
+      req.postId = foundPost;
+      next();
+    } else {
+      res.status(404).json({ message: "post not  found" });
+    }
+  } catch (error) {
+    next(error);
+  }
+});
 
-router.delete('/:postId', postsDelete);
+router.get("/", postsGet);
+router.post("/", postsCreate);
 
-router.put('/:postId', postsUpdate);
+router.delete("/:postId", postsDelete);
+
+router.put("/:postId", postsUpdate);
 
 module.exports = router;
