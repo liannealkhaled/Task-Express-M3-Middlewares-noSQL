@@ -12,7 +12,6 @@ app.use("/posts", postsRoutes);
 app.use((error, req, res, next) => {
   res.status(500).json(error.message);
 });
-// /////errormsg not working!
 
 //// notfound
 app.use((req, res, next) => {

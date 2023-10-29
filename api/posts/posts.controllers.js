@@ -9,6 +9,33 @@ exports.postsCreate = async (req, res, next) => {
   }
 };
 
+exports.postsGet = async (req, res, next) => {
+  try {
+    const posts = await Post.find();
+    res.json(posts);
+  } catch (error) {
+    next(error);
+  }
+};
+exports.postsDelete = async (req, res, next) => {
+  try {
+    await req.postId.deleteOne();
+    res.status(204).end();
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.postsUpdate = async (req, res, next) => {
+  try {
+    await req.postId.updateOne(req.body);
+    res.status(204).end();
+  } catch (error) {
+    next(error);
+  }
+};
+
+/////// LONGER CODE//////
 ////// fetchPOST :
 
 // exports.fetchPost = async (postId, next) => {
@@ -27,42 +54,33 @@ exports.postsCreate = async (req, res, next) => {
 //   }
 // };
 
-exports.postsDelete = async (req, res, next) => {
-  // const { postId } = req.params;
-  // console.log(req);
-  try {
-    // const foundPost = await Post.findById(postId);
-    // if (foundPost) {
-    await req.postId.deleteOne();
-    res.status(204).end();
-    // } else {
-    //   next({ message: "Post not found!" });
-    // }
-  } catch (error) {
-    next(error);
-  }
-};
+// exports.postsDelete = async (req, res, next) => {
+//   // const { postId } = req.params;
+//   // console.log(req);
+//   try {
+//     // const foundPost = await Post.findById(postId);
+//     // if (foundPost) {
+//     await req.postId.deleteOne();
+//     res.status(204).end();
+//     // } else {
+//     //   next({ message: "Post not found!" });
+//     // }
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 
-exports.postsUpdate = async (req, res, next) => {
-  // const { postId } = req.params;
-  try {
-    // const foundPost = await Post.findById(postId);
-    // if (foundPost) {
-    await req.postId.updateOne(req.body);
-    res.status(204).end();
-    // } else {
-    //   res.status(404).json({ message: "post not found" });
-    // }
-  } catch (error) {
-    next(error);
-  }
-};
-
-exports.postsGet = async (req, res, next) => {
-  try {
-    const posts = await Post.find();
-    res.json(posts);
-  } catch (error) {
-    next(error);
-  }
-};
+// exports.postsUpdate = async (req, res, next) => {
+//   // const { postId } = req.params;
+//   try {
+//     // const foundPost = await Post.findById(postId);
+//     // if (foundPost) {
+//     await req.postId.updateOne(req.body);
+//     res.status(204).end();
+//     // } else {
+//     //   res.status(404).json({ message: "post not found" });
+//     // }
+//   } catch (error) {
+//     next(error);
+//   }
+// };
