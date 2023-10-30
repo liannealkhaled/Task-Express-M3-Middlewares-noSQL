@@ -15,7 +15,7 @@ router.param("postId", async (req, res, next, postId) => {
     // const post = await fetchPost(postId);
     const foundPost = await Post.findById(postId);
     if (foundPost) {
-      req.postId = foundPost;
+      req.post = foundPost;
       next();
     } else {
       res.status(404).json({ message: "post not  found" });

@@ -23,7 +23,7 @@ exports.postsGet = async (req, res, next) => {
 };
 exports.postsDelete = async (req, res, next) => {
   try {
-    await req.postId.deleteOne();
+    await req.post.deleteOne();
     res.status(204).end();
   } catch (error) {
     next(error);
@@ -32,7 +32,7 @@ exports.postsDelete = async (req, res, next) => {
 
 exports.postsUpdate = async (req, res, next) => {
   try {
-    await req.postId.updateOne(req.body);
+    await req.post.updateOne(req.body);
     res.status(204).end();
   } catch (error) {
     next(error);
