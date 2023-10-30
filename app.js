@@ -2,9 +2,12 @@ const express = require("express");
 const app = express();
 const postsRoutes = require("./api/posts/posts.routes");
 const connectDb = require("./database");
-
+const path = require("path");
 connectDb();
 app.use(express.json());
+
+///// for the postman to read the attached image
+app.use("/media", express.static(path.join(__dirname, "media")));
 
 app.use("/posts", postsRoutes);
 

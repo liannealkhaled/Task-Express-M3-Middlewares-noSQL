@@ -7,6 +7,7 @@ const {
   postsCreate,
 } = require("./posts.controllers");
 const Post = require("../../models/Post");
+const upload = require("../../middleware/multer");
 
 ///////// shortcut to use id as param for all functions instead of defining id everytime//////
 router.param("postId", async (req, res, next, postId) => {
@@ -25,7 +26,7 @@ router.param("postId", async (req, res, next, postId) => {
 });
 
 router.get("/", postsGet);
-router.post("/", postsCreate);
+router.post("/", upload.single("image"), postsCreate);
 
 router.delete("/:postId", postsDelete);
 
